@@ -246,10 +246,11 @@ nav a {
   nav .navigation a {
     display: flex;
     flex-direction: column;
-
+    &.active .icon{
+      font-family: var(--icofont);
+    }
     & .icon {
       display: block;
-      font-family: var(--icofont);
       font-size: 2em;
     }
     &:before{
@@ -375,6 +376,10 @@ and (orientation:portrait){
     display: flex;
     flex-direction: column;
 
+    &.active .icon{
+      font-family: var(--icofont);
+    }
+    
     & .icon {
       display: block;
       font-family: var(--icofont);
