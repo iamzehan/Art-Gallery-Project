@@ -148,7 +148,20 @@ div.details {
     &::scroll-button(*){
       height: 50px;
       width: 50px;
-      font-size: 2rem;
+      font-size: 3rem;
+      font-weight: normal!important;
+      border: none!important;
+      background-color: transparent!important;
+    }
+    &::scroll-button(*):enabled{
+      color: var(--accent-color1);
+      background-color: transparent;
+    }
+    &::scroll-button(right){
+      content: 'chevron_right';
+    }
+    &::scroll-button(left){
+      content: 'chevron_left';
     }
     > li::scroll-marker{
       padding: 0.4rem;
