@@ -27,10 +27,18 @@ message.addEventListener("click", () => {
   });
 });
 
+let active;
+document.addEventListener("DOMContentLoaded", () => {
+  active = document.querySelector(".navigation a.active");
+  active.style.color = "whitesmoke";
+  pageLoader(active);
+});
+
 const content = document.querySelector(".content");
 const menuItems = document.querySelectorAll(".navigation a");
 menuItems.forEach((item) => {
   item.addEventListener("click", () => {
+    active = setActiveState(item, active);
     pageLoader(item);
   });
 });
@@ -41,16 +49,17 @@ const pageLoader = (item) => {
     content.appendChild(Gallery);
   }
 };
-
-document.addEventListener("DOMContentLoaded", () => {
-  const active = document.querySelector(".navigation a.active");
-  active.style.color = "whitesmoke";
-  pageLoader(active);
-});
+const setActiveState = (item, prev) => {
+  if (!item.classList.contains("active")) {
+    item.classList.add("active");
+    prev.classList.remove("active");
+  }
+  return item;
+};
 
 const pictures = Gallery.querySelectorAll("div.img");
 console.log(pictures);
-pictures.forEach(picture=>{
+pictures.forEach((picture) => {
   picture.addEventListener("click", () => {
     content.innerHTML = "";
     content.appendChild(Details);
