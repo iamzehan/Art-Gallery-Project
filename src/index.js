@@ -40,9 +40,6 @@ const pageLoader = (item) => {
   if (item.classList.contains("gallery")) {
     content.appendChild(Gallery);
   }
-  if (item.classList.contains("about")) {
-    content.appendChild(Details);
-  }
 };
 
 document.addEventListener("DOMContentLoaded", () => {
