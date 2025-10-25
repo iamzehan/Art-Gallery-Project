@@ -1,10 +1,10 @@
 import "./style.css";
-import Navigo from 'navigo';
-import Gallery from "./components/Gallery";
+import Navigo from "navigo";
+import { Gallery } from "./components/Gallery";
 import Details from "./components/Details";
 
 // Configure router for GitHub Pages
-const base = '/Art-Gallery-Project/';
+const base = "/Art-Gallery-Project/";
 const router = new Navigo(base, { hash: true }); // Using hash-based routing for GitHub Pages
 const header = document.querySelector("header");
 const menuHider = document.querySelector(".menu-hider");
@@ -35,25 +35,24 @@ const content = document.querySelector(".content");
 
 // Define routes
 router
-  .on('/', () => {
-    content.innerHTML = '';
-    updateActiveLink('home');
-    setupGalleryEvents();
+  .on("/", () => {
+    content.innerHTML = "";
+    updateActiveLink("home");
   })
-  .on('/gallery', () => {
-    content.innerHTML = '';
-    content.appendChild(Gallery);
-    updateActiveLink('gallery');
-    setupGalleryEvents();
+  .on("/gallery", () => {
+    content.innerHTML = "";
+    const gallery = new Gallery(router);
+    content.appendChild(gallery.getGallery());
+    updateActiveLink("gallery");
   })
-  .on('/about', () => {
-    content.innerHTML = '';
-    updateActiveLink('about');
+  .on("/about", () => {
+    content.innerHTML = "";
+    updateActiveLink("about");
   })
-  .on('/details/:id', (match) => {
-    content.innerHTML = '';
+  .on("/gallery/details/:id", (match) => {
+    content.innerHTML = "";
     content.appendChild(Details);
-    // You can use match.data.id to load specific artwork details
+    updateActiveLink("gallery");
   })
   .notFound(() => {
     // Redirect to home page if route not found
@@ -68,13 +67,13 @@ document.addEventListener("DOMContentLoaded", () => {
 // Update active link in navigation
 function updateActiveLink(routeName) {
   const menuItems = document.querySelectorAll(".navigation a");
-  menuItems.forEach(item => {
+  menuItems.forEach((item) => {
     if (item.classList.contains(routeName)) {
-      item.classList.add('active');
-      item.style.color = 'whitesmoke';
+      item.classList.add("active");
+      item.style.color = "whitesmoke";
     } else {
-      item.classList.remove('active');
-      item.style.color = '';
+      item.classList.remove("active");
+      item.style.color = "";
     }
   });
 }
@@ -84,17 +83,7 @@ const menuItems = document.querySelectorAll(".navigation a");
 menuItems.forEach((item) => {
   item.addEventListener("click", (e) => {
     e.preventDefault();
-    const route = item.classList[0] === 'home' ? '/' : `/${item.classList[0]}`;
+    const route = item.classList[0] === "home" ? "/" : `/${item.classList[0]}`;
     router.navigate(route);
   });
 });
-
-// Setup gallery image click events
-function setupGalleryEvents() {
-  const pictures = Gallery.querySelectorAll("div.img");
-  pictures.forEach((picture, index) => {
-    picture.addEventListener("click", () => {
-      router.navigate(`/details/${index + 1}`);
-    });
-  });
-}
