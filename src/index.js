@@ -1,7 +1,9 @@
 import "./style.css";
+import Navigo from 'navigo';
 import Gallery from "./components/Gallery";
 import Details from "./components/Details";
 
+const router = new Navigo('/');
 const header = document.querySelector("header");
 const menuHider = document.querySelector(".menu-hider");
 const menu = document.querySelector("nav");
@@ -27,41 +29,60 @@ message.addEventListener("click", () => {
   });
 });
 
-let active;
+const content = document.querySelector(".content");
+
+// Define routes
+router
+  .on('/gallery', () => {
+    content.innerHTML = '';
+    content.appendChild(Gallery);
+    updateActiveLink('gallery');
+    setupGalleryEvents();
+  })
+  .on('/details/:id', (match) => {
+    content.innerHTML = '';
+    content.appendChild(Details);
+    // You can use match.data.id to load specific artwork details
+  })
+  .notFound(() => {
+    content.innerHTML = '<h2>Page not found</h2>';
+  });
+
+// Initialize router
 document.addEventListener("DOMContentLoaded", () => {
-  active = document.querySelector(".navigation a.active");
-  active.style.color = "whitesmoke";
-  pageLoader(active);
+  router.resolve();
 });
 
-const content = document.querySelector(".content");
+// Update active link in navigation
+function updateActiveLink(routeName) {
+  const menuItems = document.querySelectorAll(".navigation a");
+  menuItems.forEach(item => {
+    if (item.classList.contains(routeName)) {
+      item.classList.add('active');
+      item.style.color = 'whitesmoke';
+    } else {
+      item.classList.remove('active');
+      item.style.color = '';
+    }
+  });
+}
+
+// Setup click events for navigation
 const menuItems = document.querySelectorAll(".navigation a");
 menuItems.forEach((item) => {
-  item.addEventListener("click", () => {
-    active = setActiveState(item, active);
-    pageLoader(item);
+  item.addEventListener("click", (e) => {
+    e.preventDefault();
+    const route = item.classList[0] === 'home' ? '/' : `/${item.classList[0]}`;
+    router.navigate(route);
   });
 });
 
-const pageLoader = (item) => {
-  content.innerHTML = "";
-  if (item.classList.contains("gallery")) {
-    content.appendChild(Gallery);
-  }
-};
-const setActiveState = (item, prev) => {
-  if (!item.classList.contains("active")) {
-    item.classList.add("active");
-    prev.classList.remove("active");
-  }
-  return item;
-};
-
-const pictures = Gallery.querySelectorAll("div.img");
-console.log(pictures);
-pictures.forEach((picture) => {
-  picture.addEventListener("click", () => {
-    content.innerHTML = "";
-    content.appendChild(Details);
+// Setup gallery image click events
+function setupGalleryEvents() {
+  const pictures = Gallery.querySelectorAll("div.img");
+  pictures.forEach((picture, index) => {
+    picture.addEventListener("click", () => {
+      router.navigate(`/details/${index + 1}`);
+    });
   });
-});
+}
