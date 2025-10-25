@@ -9,6 +9,7 @@
   --accent-color1: rgb(155, 155, 238);
   --accent-color2: rgba(133, 133, 236, 1);
   --accent-color3: rgb(122, 122, 228);
+  --accent-color4: rgb(80, 80, 218);
   --secondary-color1: rgb(245, 42, 42);
   --body-color-scheme1: white;
   --font-family: system-ui;
@@ -68,12 +69,12 @@ nav a {
 
   transition: 0.3s background-color ease-in-out;
 
-  &::before {
+  &::before, &.active::before {
     content: "";
     position: absolute;
     bottom: 0;
     left: 0;
-    background-color: white;
+    background-color: var(--accent-color4);
     height: 0.3em;
     width: 100%;
     transform: scaleY(0);
@@ -85,8 +86,8 @@ nav a {
     cursor: pointer;
     background-color: var(--accent-color2);
   }
-  &:hover::before,
-  &.active {
+  &.active::before, &:hover::before
+  {
     transform: scaleY(1);
   }
 }
@@ -255,7 +256,7 @@ nav a {
       display: block;
       font-size: 2em;
     }
-    &:before{
+    &::before{
         width: 50%;
         bottom: 0;
         left: 25%;
