@@ -37,11 +37,14 @@ const content = document.querySelector(".content");
 // Define routes
 router
   .on("/", () => {
+    history.scrollRestoration = "manual";
+    window.scrollTo(0, 0);
     content.innerHTML = "";
     content.appendChild(new Home().getHome());
     updateActiveLink("home");
   })
   .on("/gallery", () => {
+    history.scrollRestoration ="auto";
     content.innerHTML = "";
     const gallery = new Gallery(router);
     content.appendChild(gallery.getGallery());
