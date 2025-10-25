@@ -3,7 +3,9 @@ import Navigo from 'navigo';
 import Gallery from "./components/Gallery";
 import Details from "./components/Details";
 
-const router = new Navigo('/');
+// Configure router for GitHub Pages
+const base = '/Art-Gallery-Project/';
+const router = new Navigo(base, { hash: true }); // Using hash-based routing for GitHub Pages
 const header = document.querySelector("header");
 const menuHider = document.querySelector(".menu-hider");
 const menu = document.querySelector("nav");
@@ -33,11 +35,22 @@ const content = document.querySelector(".content");
 
 // Define routes
 router
+  .on('/', () => {
+    content.innerHTML = '';
+    content.appendChild(Gallery);
+    updateActiveLink('gallery');
+    setupGalleryEvents();
+  })
   .on('/gallery', () => {
     content.innerHTML = '';
     content.appendChild(Gallery);
     updateActiveLink('gallery');
     setupGalleryEvents();
+  })
+  .on('/about', () => {
+    content.innerHTML = '';
+    content.appendChild(Details);
+    updateActiveLink('about');
   })
   .on('/details/:id', (match) => {
     content.innerHTML = '';
@@ -45,7 +58,8 @@ router
     // You can use match.data.id to load specific artwork details
   })
   .notFound(() => {
-    content.innerHTML = '<h2>Page not found</h2>';
+    // Redirect to home page if route not found
+    router.navigate('/');
   });
 
 // Initialize router
