@@ -2,6 +2,7 @@ import "./style.css";
 import Navigo from "navigo";
 import { Gallery } from "./components/Gallery";
 import Details from "./components/Details";
+import Home from "./components/Home";
 
 // Configure router for GitHub Pages
 const base = "/Art-Gallery-Project/";
@@ -37,6 +38,7 @@ const content = document.querySelector(".content");
 router
   .on("/", () => {
     content.innerHTML = "";
+    content.appendChild(new Home().getHome());
     updateActiveLink("home");
   })
   .on("/gallery", () => {
