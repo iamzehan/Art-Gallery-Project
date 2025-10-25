@@ -1,3 +1,6 @@
+# Art Gallery App template
+This is a custom UI sample project I developed for a potential client (who basically ghosted me). So, feel free to use it. 
+
 # Configure
 
 ## `1. Install packages 📥`
