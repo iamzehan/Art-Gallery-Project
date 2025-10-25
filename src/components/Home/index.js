@@ -4,6 +4,7 @@ import template from './index.html';
 export default class Home{
     constructor(){
         this.home = document.createElement("div");
+        this.home.classList.add("home");
         this.home.innerHTML = template;
     }
     getHome(){
