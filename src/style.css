@@ -123,6 +123,7 @@ nav a {
     font-size: 2em;
   }
   & > span.message.active{
+    font-family: 'Material Icons';
     color: var(--accent-color3);
     animation: 1s iconAnimate alternate infinite;
   }
