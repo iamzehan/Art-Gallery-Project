@@ -37,8 +37,7 @@ const content = document.querySelector(".content");
 router
   .on('/', () => {
     content.innerHTML = '';
-    content.appendChild(Gallery);
-    updateActiveLink('gallery');
+    updateActiveLink('home');
     setupGalleryEvents();
   })
   .on('/gallery', () => {
@@ -49,7 +48,6 @@ router
   })
   .on('/about', () => {
     content.innerHTML = '';
-    content.appendChild(Details);
     updateActiveLink('about');
   })
   .on('/details/:id', (match) => {
