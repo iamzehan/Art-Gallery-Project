@@ -20,13 +20,42 @@ div.details {
   animation: 0.5s slideIn linear alternate forwards;
 
   &::scroll-marker-group {
+    anchor-name: --scroller;
     display: grid;
     grid-auto-flow: column;
     grid-area: markers;
     padding: 0rem 2rem;
     justify-content: center;
     align-items: center;
-    margin-bottom: 1em;
+    margin: 1em;
+    height: 40px;
+    width: 50%;
+    align-self: center;
+  }
+
+  &::scroll-button(*) {
+    position: fixed;
+    position-anchor: --scroller;
+    font-family: "Material Icons";
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    border: 1px solid var(--accent-color1);
+  }
+  &::scroll-button(*):enabled {
+    color: white;
+    font-weight: bold;
+    background-color: var(--accent-color1);
+  }
+
+  &::scroll-button(right) {
+    position-area: center right;
+    content: "arrow_forward" / "Next";
+  }
+
+  &::scroll-button(left) {
+    position-area: center left;
+    content: "arrow_back" / "Previous";
   }
 
   & > .img {
@@ -35,7 +64,7 @@ div.details {
     display: flex;
     justify-content: center;
     align-items: center;
-    
+
     animation: 0.5s pulse linear alternate infinite;
 
     > span {
@@ -112,11 +141,20 @@ div.details {
   }
   ul.carousel {
     border-radius: 0;
+    &::scroll-marker-group {
+      width: 50%;
+      align-self: center;
+    }
+    > li::scroll-marker{
+      padding: 0.4rem;
+    }
+    > li::scroll-marker:target-current{
+      padding: 0.5rem;
+    }
   }
 }
 
-@media screen and (min-width: 768px) and (max-width: 1024px) 
-and (orientation:portrait){
+@media screen and (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
   div.details {
     width: 100vw;
     justify-content: unset;
