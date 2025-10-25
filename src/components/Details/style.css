@@ -145,6 +145,11 @@ div.details {
       width: 50%;
       align-self: center;
     }
+    &::scroll-button(*){
+      height: 50px;
+      width: 50px;
+      font-size: 2rem;
+    }
     > li::scroll-marker{
       padding: 0.4rem;
     }
@@ -161,6 +166,21 @@ div.details {
   }
   ul.carousel {
     border-radius: 0;
+    &::scroll-marker-group {
+      width: 50%;
+      align-self: center;
+    }
+    &::scroll-button(*){
+      height: 50px;
+      width: 50px;
+      font-size: 2rem;
+    }
+    > li::scroll-marker{
+      padding: 0.4rem;
+    }
+    > li::scroll-marker:target-current{
+      padding: 0.5rem;
+    }
   }
 }
 
